@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.jpg" alt="Antigravity IDE for Linux Banner" width="100%" />
+  <img src="assets/logo.jpg" alt="Antigravity IDE for Linux Logo" width="160" style="border-radius: 24px;" />
 
   <h1>Antigravity IDE Installer & Updater for Linux</h1>
   <p><strong>Zero-dependency Bash automation to cleanly install, update, or uninstall Antigravity IDE from official <code>.tar.gz</code> archives on Ubuntu, Debian, and other Linux distributions.</strong></p>
