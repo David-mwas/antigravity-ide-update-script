@@ -18,8 +18,19 @@ if command -v xdg-user-dir >/dev/null 2>&1 && [[ -z "${SUDO_USER:-}" ]]; then
     DOWNLOADS_DIR=$(xdg-user-dir DOWNLOAD 2>/dev/null || echo "${REAL_HOME}/Downloads")
 fi
 
+# Resolve script directory to find bundled assets (e.g. custom Antigravity x Linux Tux icon)
+SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SCRIPT_SOURCE" ]]; do
+    SCRIPT_DIR=$(cd -P "$(dirname "$SCRIPT_SOURCE")" >/dev/null 2>&1 && pwd)
+    SCRIPT_SOURCE=$(readlink "$SCRIPT_SOURCE")
+    [[ "$SCRIPT_SOURCE" != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
+done
+SCRIPT_DIR=$(cd -P "$(dirname "$SCRIPT_SOURCE")" >/dev/null 2>&1 && pwd)
+
 TARGET_DIR="/opt/antigravity"
 DESKTOP_FILE="/usr/share/applications/antigravity-ide.desktop"
+CUSTOM_ICON_DIR="${REAL_HOME}/.local/share/icons"
+CUSTOM_ICON_FILE="${CUSTOM_ICON_DIR}/antigravity-tux.png"
 TAR_FILE=""
 CLEAN_ARCHIVE=false
 UNINSTALL=false
@@ -60,10 +71,14 @@ ${BOLD}Examples:${NC}
 
 install_self() {
     local bin_dir="${REAL_HOME}/.local/bin"
-    mkdir -p "$bin_dir"
+    mkdir -p "$bin_dir" "$CUSTOM_ICON_DIR"
     cp "$0" "$bin_dir/update-antigravity"
     chmod +x "$bin_dir/update-antigravity"
     ln -sf "$bin_dir/update-antigravity" "$bin_dir/update-antigravity.sh"
+    if [[ -f "${SCRIPT_DIR}/assets/logo.png" ]]; then
+        cp -f "${SCRIPT_DIR}/assets/logo.png" "$CUSTOM_ICON_FILE"
+        ok "Saved custom Antigravity × Linux Tux icon to ${CUSTOM_ICON_FILE}"
+    fi
     ok "Installed command to ${bin_dir}/update-antigravity"
     if [[ ":$PATH:" != *":${bin_dir}:"* ]]; then
         warn "${bin_dir} is not currently in your PATH. Add this to your ~/.bashrc or ~/.zshrc:"
@@ -242,9 +257,17 @@ else
     warn "Could not automatically locate main binary inside $TARGET_DIR."
 fi
 
-# 9. Detect application icon and register in system icon theme
+# 9. Detect application icon (prefer custom Antigravity × Linux Tux icon if available)
 ICON_PATH=""
-if [[ -f "$TARGET_DIR/resources/app/resources/linux/code.png" ]]; then
+if [[ -f "${SCRIPT_DIR}/assets/logo.png" ]]; then
+    mkdir -p "$CUSTOM_ICON_DIR"
+    cp -f "${SCRIPT_DIR}/assets/logo.png" "$CUSTOM_ICON_FILE"
+    run_priv cp -f "${SCRIPT_DIR}/assets/logo.png" "$TARGET_DIR/antigravity-tux.png"
+    ICON_PATH="$TARGET_DIR/antigravity-tux.png"
+elif [[ -f "$CUSTOM_ICON_FILE" ]]; then
+    run_priv cp -f "$CUSTOM_ICON_FILE" "$TARGET_DIR/antigravity-tux.png"
+    ICON_PATH="$TARGET_DIR/antigravity-tux.png"
+elif [[ -f "$TARGET_DIR/resources/app/resources/linux/code.png" ]]; then
     ICON_PATH="$TARGET_DIR/resources/app/resources/linux/code.png"
 else
     ICON_PATH=$(find "$TARGET_DIR" -type f -name "*.png" | grep -E 'linux/code\.png|app\.png|logo\.png' | head -n 1 || true)

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.jpg" alt="Antigravity IDE for Linux Logo" width="160" style="border-radius: 24px;" />
+  <img src="assets/logo.png" alt="Antigravity IDE for Linux Logo" width="160" />
 
   <h1>Antigravity IDE Installer & Updater for Linux</h1>
   <p><strong>Zero-dependency Bash automation to cleanly install, update, or uninstall Antigravity IDE from official <code>.tar.gz</code> archives on Ubuntu, Debian, and other Linux distributions.</strong></p>
@@ -22,7 +22,7 @@ Instead of manually extracting archives, fixing `chrome-sandbox` permissions, re
 - **Ubuntu 23.10 / 24.04+ AppArmor & Sandbox Ready:** Automatically sets `root:root` ownership and `4755` SUID permissions on `chrome-sandbox` so Electron launches without sandbox errors.
 - **Conflict Resolution:** Detects and removes conflicting `antigravity` Snap installations that shadow `/usr/local/bin` in `$PATH`.
 - **CLI Integration:** Links both `antigravity` and `antigravity-ide` to `/usr/local/bin` via the official CLI wrapper so `antigravity .` works cleanly from any terminal.
-- **Desktop & Icon Integration:** Installs the official application icon and registers `/usr/share/applications/antigravity-ide.desktop` (with a *"New Empty Window"* right-click action).
+- **Custom Antigravity × Tux Desktop Icon:** Automatically installs and configures the custom **Antigravity × Linux Tux** icon (`~/.local/share/icons/antigravity-tux.png` and `/usr/share/pixmaps/antigravity-ide.png`) and registers `/usr/share/applications/antigravity-ide.desktop` (with a *"New Empty Window"* right-click action).
 - **Version Tracking:** Displays the exact version upgrade path (e.g., `v2.5.0 -> v2.6.0`).
 
 ---
