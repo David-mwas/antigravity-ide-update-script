@@ -1,10 +1,19 @@
-# Antigravity IDE Installer & Updater for Linux
+<div align="center">
+  <img src="assets/banner.jpg" alt="Antigravity IDE for Linux Banner" width="100%" />
 
-A zero-dependency Bash automation script to cleanly install, update, or uninstall **Antigravity IDE** from official `.tar.gz` archives on Ubuntu, Debian, and other Linux distributions.
+  <h1>Antigravity IDE Installer & Updater for Linux</h1>
+  <p><strong>Zero-dependency Bash automation to cleanly install, update, or uninstall Antigravity IDE from official <code>.tar.gz</code> archives on Ubuntu, Debian, and other Linux distributions.</strong></p>
 
-Instead of manually extracting archives, fixing `chrome-sandbox` permissions, recreating symlinks, and configuring `.desktop` launchers every time a new version is released, run a single command.
+  <p>
+    <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Platform: Linux | Ubuntu" />
+    <img src="https://img.shields.io/badge/Shell-Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Shell: Bash" />
+    <img src="https://img.shields.io/badge/License-MIT-00B4D8?style=for-the-badge" alt="License: MIT" />
+  </p>
+</div>
 
 ---
+
+Instead of manually extracting archives, fixing `chrome-sandbox` permissions, recreating symlinks, and configuring `.desktop` launchers every time a new version is released, run a single command.
 
 ## ✨ Features
 
